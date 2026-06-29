@@ -1,28 +1,34 @@
-# GitHub polish checklist (manual steps after Dawit approves push)
+# GitHub polish checklist
 
-## Pin these six repos
+## Completed (2026-06-29)
 
-1. healthcare-ai-workflow-assistant (rename from medimind-hep-assist-ai first)
-2. enterprise-workflow-management-system
-3. golang-transaction-api
-4. node-firebase-mobile-backend
-5. cpims-information-management-demo
-6. application-support-runbook-lab
+- Renamed and pushed `healthcare-ai-workflow-assistant`
+- Created and pushed five new portfolio repos
+- Pushed `portfolio-website` and `healthcare-integration-portfolio`
+- Updated `dawit-tegegnwork` profile README
 
-## Topics to add
+## Pin these six repos (manual — GitHub API does not expose repo pin mutation)
 
-`fastapi`, `postgresql`, `healthcare-ai`, `digital-health`, `backend`, `golang`, `firebase`, `rbac`, `docker`, `information-management`, `application-support`
+1. https://github.com/dawit-Tegegnwork/healthcare-ai-workflow-assistant
+2. https://github.com/dawit-Tegegnwork/enterprise-workflow-management-system
+3. https://github.com/dawit-Tegegnwork/golang-transaction-api
+4. https://github.com/dawit-Tegegnwork/node-firebase-mobile-backend
+5. https://github.com/dawit-Tegegnwork/cpims-information-management-demo
+6. https://github.com/dawit-Tegegnwork/application-support-runbook-lab
+
+On your GitHub profile → Customize your pins → add the six repos above in that order.
+
+## Topics (applied via gh repo edit)
+
+Topics were added to all six portfolio repos during publish.
 
 ## Profile README
 
-Copy content from [docs/profile_README_draft.md](profile_README_draft.md) into `dawit-tegegnwork` repo README.
+Applied to `dawit-tegegnwork` repo on GitHub.
 
-## Push order (after approval)
+## Publish status
 
-1. medimind-hep-assist-ai → rename on GitHub
-2. Push new repos from `/home/dawit/projects/`
-3. Update portfolio-website
-4. Update healthcare-integration-portfolio index
+All repos pushed. See repo URLs on https://github.com/dawit-Tegegnwork
 
 ## Interview story prompts
 
