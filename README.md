@@ -2,9 +2,7 @@
 
 Synthetic healthcare note assistant with structured AI extraction, human review workflow, audit logging, and a demo dashboard. **Synthetic demo data only** — not for real patient data or clinical decision-making.
 
-[![Tests](https://github.com/dawit-Tegegnwork/medimind-hep-assist-ai/actions/workflows/test.yml/badge.svg)](https://github.com/dawit-Tegegnwork/medimind-hep-assist-ai/actions/workflows/test.yml)
-
-> **Portfolio note:** This repo will be renamed to `healthcare-ai-workflow-assistant` on GitHub after review. See [docs/RENAME_REPO.md](docs/RENAME_REPO.md).
+[![Tests](https://github.com/dawit-Tegegnwork/healthcare-ai-workflow-assistant/actions/workflows/test.yml/badge.svg)](https://github.com/dawit-Tegegnwork/healthcare-ai-workflow-assistant/actions/workflows/test.yml)
 
 ## What it demonstrates
 
@@ -29,6 +27,12 @@ flowchart LR
   Notes --> LLM[MockLLM]
   Notes --> Audit[audit_events]
 ```
+
+## Screenshots
+
+| Dashboard | API docs | Workflow endpoints |
+|-----------|----------|-------------------|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Swagger](docs/screenshots/swagger.png) | ![Workflow](docs/screenshots/workflow.png) |
 
 ## Quick start
 
