@@ -13,6 +13,7 @@ from app.db.session import get_session
 from app.models.schemas import (
     AuditEvent,
     AuditEventResponse,
+    DashboardReviewRow,
     DashboardSummary,
     ExtractionResponse,
     NoteCreateInput,
@@ -216,6 +217,25 @@ def dashboard_summary(session: Session = Depends(get_session)) -> DashboardSumma
         total_notes=total_notes,
         total_extractions=total_extractions,
     )
+
+
+@router.get("/dashboard/reviews", response_model=list[DashboardReviewRow])
+def dashboard_reviews(session: Session = Depends(get_session)) -> list[DashboardReviewRow]:
+    rows = session.exec(
+        select(Extraction, ClinicalNote)
+        .join(ClinicalNote, ClinicalNote.id == Extraction.note_id)
+        .order_by(Extraction.created_at.desc())
+        .limit(20)
+    ).all()
+    return [
+        DashboardReviewRow(
+            note_title=note.title,
+            summary=extraction.summary[:120] + ("…" if len(extraction.summary) > 120 else ""),
+            review_status=extraction.review_status.value,
+            note_type=note.note_type,
+        )
+        for extraction, note in rows
+    ]
 
 
 @router.get("/audit", response_model=list[AuditEventResponse])

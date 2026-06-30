@@ -6,8 +6,8 @@
 
 1. Click **Deploy to Render** above (or import this repo in the [Render dashboard](https://dashboard.render.com/)).
 2. Render reads [`render.yaml`](render.yaml) and builds the Docker image.
-3. After deploy, open `https://<your-service>.onrender.com/docs` for Swagger UI.
-4. Seed demo data (optional — run locally against the service or use API to create notes):
+3. After deploy, open `https://healthcare-ai-workflow-assistant.onrender.com/dashboard` for the demo UI.
+4. Open `https://healthcare-ai-workflow-assistant.onrender.com/docs` for Swagger UI.
 
 ```bash
 curl -X POST https://<your-service>.onrender.com/api/v1/notes \
@@ -31,7 +31,7 @@ curl -X POST https://<your-service>.onrender.com/api/v1/notes \
 ## Health check
 
 ```bash
-curl https://<your-service>.onrender.com/health
+curl https://healthcare-ai-workflow-assistant.onrender.com/health
 ```
 
 Expected: `{"status":"ok","service":"Healthcare AI Workflow Assistant"}`

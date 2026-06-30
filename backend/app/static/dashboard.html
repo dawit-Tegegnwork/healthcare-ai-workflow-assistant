@@ -5,85 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Healthcare AI Workflow Assistant — Demo Dashboard</title>
   <style>
-    body { font-family: system-ui, sans-serif; margin: 2rem; background: #f6f8fa; color: #1f2937; }
-    h1 { margin-bottom: 0.25rem; }
-    .muted { color: #6b7280; margin-bottom: 1.5rem; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; }
-    .card strong { display: block; font-size: 1.5rem; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
-    th, td { text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; }
-    th { background: #f9fafb; font-weight: 600; }
-    .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-    .pending { background: #fef3c7; color: #92400e; }
-    .approved { background: #d1fae5; color: #065f46; }
-    .rejected { background: #fee2e2; color: #991b1b; }
-    .changes { background: #e0e7ff; color: #3730a3; }
-    .none { background: #f3f4f6; color: #6b7280; }
-    a { color: #2563eb; }
-    code { background: #eef2ff; padding: 0.1rem 0.35rem; border-radius: 4px; }
+    :root {
+      --bg: #FBF7F0;
+      --surface: #fff;
+      --ink: #0E2A3B;
+      --muted: #5B6B73;
+      --teal: #0E9E8E;
+      --green: #1FA85B;
+      --orange: #F2742C;
+      --border: #E8DFD0;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg); color: var(--ink); }
+    .banner { background: #ecfdf5; border-bottom: 1px solid #6ee7b7; color: #065f46; padding: 0.65rem 1.5rem; font-size: 0.85rem; }
+    main { max-width: 1100px; margin: 0 auto; padding: 1.75rem 1.25rem 2.5rem; }
+    h1 { margin: 0 0 0.25rem; font-size: 1.65rem; }
+    .muted { color: var(--muted); margin-bottom: 1.25rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; box-shadow: 0 8px 24px rgba(14,42,59,0.06); }
+    .card span { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.35rem; }
+    .card strong { font-size: 1.85rem; line-height: 1; }
+    .card.pending strong { color: var(--orange); }
+    .card.approved strong { color: var(--green); }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.88rem; }
+    th { background: #F8F3EA; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    .pill { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .pill-pending { background: rgba(242,116,44,0.15); color: var(--orange); }
+    .pill-approved { background: rgba(31,168,91,0.15); color: var(--green); }
+    .pill-rejected { background: rgba(220,38,38,0.12); color: #b91c1c; }
+    .pill-changes { background: rgba(14,158,142,0.12); color: var(--teal); }
+    .nav { margin-top: 1.5rem; font-size: 0.9rem; }
+    a { color: var(--teal); font-weight: 600; }
+    code { background: #F4ECDE; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.82rem; }
   </style>
 </head>
 <body>
-  <h1>Healthcare AI Workflow Assistant</h1>
-  <p class="muted">Portfolio demo — synthetic clinical notes only. Human review required before any clinical use.</p>
-  <div class="cards" id="summary">Loading summary...</div>
-  <h2>Recent notes</h2>
-  <table>
-    <thead>
-      <tr><th>Title</th><th>Type</th><th>Review status</th><th>Created</th></tr>
-    </thead>
-    <tbody id="notes"><tr><td colspan="4">Loading notes...</td></tr></tbody>
-  </table>
-  <p style="margin-top: 2rem;">
-    <a href="/docs">API documentation</a> ·
-  <code>POST /api/v1/notes</code> ·
-  <code>POST /api/v1/notes/{id}/extract</code> ·
-  <code>POST /api/v1/extractions/{id}/review</code>
-  </p>
+  <div class="banner"><strong>Synthetic demo only.</strong> Human review required before any clinical use. No real patient data.</div>
+  <main>
+    <h1>Healthcare AI Workflow Assistant</h1>
+    <p class="muted">Review queue for AI-assisted extractions — structured output with mandatory human sign-off.</p>
+    <div class="cards" id="summary">Loading summary...</div>
+    <h2 style="font-size:1.1rem;margin:0 0 0.75rem;">Review queue</h2>
+    <table>
+      <thead><tr><th>Note</th><th>Extraction summary</th><th>Status</th><th>Type</th></tr></thead>
+      <tbody id="reviews"><tr><td colspan="4">Loading reviews...</td></tr></tbody>
+    </table>
+    <p class="nav">
+      <a href="/">Home</a> ·
+      <a href="/docs">API docs</a> ·
+      Create note: <code>POST /api/v1/notes</code> ·
+      Extract: <code>POST /api/v1/notes/{id}/extract</code>
+    </p>
+  </main>
   <script>
-    function badgeClass(status) {
-      if (!status) return 'none';
-      if (status === 'pending') return 'pending';
-      if (status === 'approved') return 'approved';
-      if (status === 'rejected') return 'rejected';
-      return 'changes';
-    }
+    const pillClass = (s) => {
+      const k = (s || '').toLowerCase();
+      if (k === 'approved') return 'pill-approved';
+      if (k === 'rejected') return 'pill-rejected';
+      if (k === 'changes_requested') return 'pill-changes';
+      return 'pill-pending';
+    };
     fetch('/api/v1/dashboard/summary')
       .then(r => r.json())
       .then(data => {
         const fields = [
-          ['Pending', data.pending_review],
-          ['Approved', data.approved],
-          ['Rejected', data.rejected],
-          ['Changes', data.changes_requested],
-          ['Notes', data.total_notes],
+          ['Pending review', data.pending_review, 'pending'],
+          ['Approved', data.approved, 'approved'],
+          ['Rejected', data.rejected, ''],
+          ['Changes requested', data.changes_requested, ''],
+          ['Total notes', data.total_notes, ''],
+          ['Total extractions', data.total_extractions, ''],
         ];
-        document.getElementById('summary').innerHTML = fields.map(([label, value]) =>
-          `<div class="card"><span>${label}</span><strong>${value}</strong></div>`
+        document.getElementById('summary').innerHTML = fields.map(([label, value, cls]) =>
+          `<div class="card ${cls}"><span>${label}</span><strong>${value}</strong></div>`
         ).join('');
       });
-    fetch('/api/v1/notes')
+    fetch('/api/v1/dashboard/reviews')
       .then(r => r.json())
-      .then(notes => {
-        if (!notes.length) {
-          document.getElementById('notes').innerHTML = '<tr><td colspan="4">No notes yet.</td></tr>';
+      .then(rows => {
+        if (!rows.length) {
+          document.getElementById('reviews').innerHTML = '<tr><td colspan="4">No extractions yet. Run the seed script or create a note.</td></tr>';
           return;
         }
-        document.getElementById('notes').innerHTML = notes.map(item => {
-          const status = item.latest_extraction ? item.latest_extraction.review_status : null;
-          const label = status || 'no extraction';
-          const created = new Date(item.note.created_at).toLocaleString();
-          return `<tr>
-            <td>${item.note.title}</td>
-            <td>${item.note.note_type}</td>
-            <td><span class="badge ${badgeClass(status)}">${label}</span></td>
-            <td>${created}</td>
-          </tr>`;
-        }).join('');
+        document.getElementById('reviews').innerHTML = rows.map(row =>
+          `<tr>
+            <td>${row.note_title}</td>
+            <td>${row.summary}</td>
+            <td><span class="pill ${pillClass(row.review_status)}">${row.review_status.replace('_', ' ')}</span></td>
+            <td>${row.note_type}</td>
+          </tr>`
+        ).join('');
       })
       .catch(() => {
-        document.getElementById('notes').innerHTML = '<tr><td colspan="4">Could not load notes.</td></tr>';
+        document.getElementById('reviews').innerHTML = '<tr><td colspan="4">Could not load review queue.</td></tr>';
       });
   </script>
 </body>

@@ -169,7 +169,8 @@ Portfolio demo only. Not a medical device. Does not diagnose or treat. Use synth
 
 | | |
 |---|---|
-| **Live demo** | Deploy via [Render](docs/RENDER_DEPLOY.md) (free tier) or run locally below |
+| **Live demo** | https://healthcare-ai-workflow-assistant.onrender.com/dashboard (free tier — first request may take ~30s after idle) |
+| **API docs** | https://healthcare-ai-workflow-assistant.onrender.com/docs |
 | **Local** | `docker compose up --build` then seed demo data |
 
 See [docs/RENDER_DEPLOY.md](docs/RENDER_DEPLOY.md) for one-click cloud deployment.

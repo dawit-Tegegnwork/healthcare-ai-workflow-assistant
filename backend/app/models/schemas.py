@@ -112,6 +112,13 @@ class DashboardSummary(BaseModel):
     total_extractions: int
 
 
+class DashboardReviewRow(BaseModel):
+    note_title: str
+    summary: str
+    review_status: str
+    note_type: str
+
+
 class AuditEventResponse(BaseModel):
     id: UUID
     action: str
